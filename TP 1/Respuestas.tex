@@ -1,0 +1,57 @@
+\maketitle
+
+\section{Especificación}
+\subsection {redistribucionDeLosFrutos}
+
+\begin{proc}{redistribucionDeLosFrutos}{\In recursos: \TLista{\float}, \In cooperan : \TLista{\float}}{\TLista{\float}}
+	\requiere{|recursos| = |cooperan| > 0}
+	\asegura{cumple(recursos,cooperan,result)}
+\end{proc}
+
+\pred{cumple}{\In recursos: \TLista{\float}, \In cooperan : \TLista{\float},result: \TLista{\float}}
+    {\paraTodo[unalinea]{i}{\ent}{0 \leq i < |recursos|}
+    \implicaLuego \\
+        {(cooperan[i] = true \implicaLuego result[i] = \dfrac{sumaCoop(recursos,cooperan)}{|recursos|})     \land 
+
+    } 
+
+        (cooperan[i] = false \implicaLuego result[i]=\dfrac{sumaCoop(recursos,cooperan)}{|recursos|}+rescursos[i])
+      }
+
+\aux{sumaCoop}{\In recursos: \TLista{\float}, \In cooperan : \TLista{\float}}{res}{\float}
+$\sum_{n=0}^{|recursos|-1}$ (if cooperan[i] = \True) then (recursos[i]) else 0
+
+\subsection {trayectoriaDeLosFrutosIndividualesALargoPlazo}
+
+\begin{proc}{trayectoriaDeLosFrutosIndividualesALargoPlazo}
+{\Inout: trayectoria: \TLista{\TLista{\float}}, \In cooperan \TLista{Bool}, \In apuestas \TLista{\TLista{\float}}, \In pagos \TLista{\TLista{\float}}, \In eventos \TLista{\TLista{\float}}}
+{\TLista{\TLista{\nat}}}
+
+\requiere{|trayectorias|=|cooperan|=|apuestas|=|pagos| = |eventos| \geq 1
+\\ \yLuego (\paraTodo[unalinea]{i}{\ent}{0\leq i}\implicaLuego{|apuestas[i]|=|pagos[i]|=|eventos[i]| \geq 1}
+}
+$\\ \yLuego \paraTodo[unalinea]{n}{\ent}{0 \leq n \leq |apuestas|-1}\implicaLuego ({apuestas[i][n]=apuestas[i][n+1]}) 
+\\ \yLuego ({pagos[i][n]=pagos[i][n+1]}) 
+\\ \yLuego ({eventos[i][n]=eventos[i][n+1]})
+$
+\end{proc}
+
+
+\subsection{trayectoriaExtrañaEscalera}
+\begin{proc}{trayectoriaExtrañaEscalera}{\In trayectoria: \TLista{\float}}{Bool}
+    \requiere{\True}
+    \asegura{maxLocal(trayectoria)}    
+\end{proc}
+
+\pred{maxLocal}{\In trayectoria: \TLista{\float}}
+    {\existe[unalinea]{!i}{\ent }{0 < i \leq |trayectoria|-1}
+    \implicaLuego \\
+        ({trayectoria[i-1]<trayectoria[i]) \land (trayectoria[i] > trayectoria[i+1])} 
+        \oLuego estaOrdenado(trayectoria)
+}
+
+\aux{estaOrdenado}{\In trayectoria: \TLista{\float}}{res}{Bool}
+\paraTodo[unalinea]{i}{\ent}{0 \leq i \leq |trayectoria|-1}
+  $  \implicaLuego{trayectoria[i]\leq trayectoria[i+1]} 
+\\ \oLuego \paraTodo[unalinea]{i}{\ent}{0 < i \leq |trayectoria|}{\implicaLuego{trayectoria[i-1]\geq trayectoria[i]}}$
+    

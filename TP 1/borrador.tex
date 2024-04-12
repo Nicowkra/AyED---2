@@ -1,0 +1,61 @@
+4. actualiza su estado coopero/no coopero
+
+se toma en cuenta:
+    recursos iniciales
+    quienes cooperan
+    cuanto paga el fondo
+    apuestas de cada individuo
+    resultado de eventos de cada individuo
+
+regla:
+    elige comportamiento que maximiza recursos individuales a largo plazo
+
+
+
+individuo   in      N
+recursos    in      seq R
+cooperan    in out  seq Bool
+apuestas    in      seq seq R
+pagos       in      seq seq R
+eventos     in      seq seq N
+
+
+si gano no coopero
+si pierdo coopero
+
+
+si pierdo mas cooperando que con mi apuesta, no coopero
+si gano mas cooperando que con mi apuesta, coopero
+
+
+if pago>fondo then 
+
+
+si tengo mucho, coopero
+si no tengo mucho, no coopero
+
+
+
+
+5. actualiza apuesta
+
+
+se toma en cuenta:
+    recursos iniciales
+    lista de individuos que cooperan
+    pagos que ofrece el fondo
+    apuestas de cada individuo
+    resultado de los eventos que recibe cada individuo
+
+regla:
+    maximizar recursos a largo plazo
+
+individuo   in      N
+recursos    in      seq R
+cooperan    in      seq Bool
+apuestas    in out  seq seq R
+pagos       in      seq seq R
+eventos     in      seq seq N
+
+si tengo poco, subo la apuesta al mayor beneficio
+si tengo mucho, 
