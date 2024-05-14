@@ -1,29 +1,43 @@
 package aed;
 
+import java.util.Vector;
+
 public class Agenda {
+    private Fecha _fechaActual;
+    private Vector<Recordatorio> _recordatorios;
 
     public Agenda(Fecha fechaActual) {
-        throw new UnsupportedOperationException("No implementada aun");
+        _fechaActual = new Fecha(fechaActual);
+        _recordatorios = new Vector<Recordatorio>();
     }
 
     public void agregarRecordatorio(Recordatorio recordatorio) {
-        throw new UnsupportedOperationException("No implementada aun");
+        _recordatorios.addElement(recordatorio);
 
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("No implementada aun");
+        StringBuilder a = new StringBuilder();
+        a.append(_fechaActual.toString()+"\n");
+        a.append("=====\n") ;
+        for (int i = 0;i <_recordatorios.size();i++){
+            Recordatorio r = _recordatorios.get(i);
+            if (r.fecha().equals(_fechaActual)){
+                a.append(r.toString() + "\n");
+            }
+        }
+        return a.toString();
+         
 
     }
 
     public void incrementarDia() {
-        throw new UnsupportedOperationException("No implementada aun");
-
+        _fechaActual.incrementarDia();
     }
 
     public Fecha fechaActual() {
-        throw new UnsupportedOperationException("No implementada aun");
+        return _fechaActual;
     }
 
 }

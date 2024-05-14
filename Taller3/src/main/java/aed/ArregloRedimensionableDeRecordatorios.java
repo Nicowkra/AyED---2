@@ -2,37 +2,50 @@ package aed;
 
 class ArregloRedimensionableDeRecordatorios implements SecuenciaDeRecordatorios {
 
+    private static final int CAPACIDAD_INICIAL = 100;
+    private int _cantidad_actual;
+    private Recordatorio[] _elementos;
+
     public ArregloRedimensionableDeRecordatorios() {
-        throw new UnsupportedOperationException("No implementada aun");
+        _cantidad_actual = 0;
+        _elementos = new Recordatorio[CAPACIDAD_INICIAL];
     }
 
     public ArregloRedimensionableDeRecordatorios(ArregloRedimensionableDeRecordatorios vector) {
-        throw new UnsupportedOperationException("No implementada aun");
+        ArregloRedimensionableDeRecordatorios vector_copiado = vector.copiar();
+        _cantidad_actual = vector_copiado._cantidad_actual;
+        _elementos = vector_copiado._elementos;
     }
 
     public int longitud() {
-        throw new UnsupportedOperationException("No implementada aun");
+        return _cantidad_actual;
     }
 
     public void agregarAtras(Recordatorio i) {
-        throw new UnsupportedOperationException("No implementada aun");
+        _elementos[_cantidad_actual] = i;
+        _cantidad_actual += 1;
     }
 
     public Recordatorio obtener(int i) {
-        throw new UnsupportedOperationException("No implementada aun");
+        return _elementos[i];
     }
 
     public void quitarAtras() {
-        throw new UnsupportedOperationException("No implementada aun");
+        _cantidad_actual -= 1; 
     }
 
     public void modificarPosicion(int indice, Recordatorio valor) {
-        throw new UnsupportedOperationException("No implementada aun");
+        _elementos[indice] = valor;
 
     }
 
     public ArregloRedimensionableDeRecordatorios copiar() {
-        throw new UnsupportedOperationException("No implementada aun");
+        ArregloRedimensionableDeRecordatorios copia = new ArregloRedimensionableDeRecordatorios();
+        for (int i = 0; i < _cantidad_actual; i++) {
+            copia.agregarAtras(_elementos[i]);
+        }
+        return copia;
     }
-
+    
 }
+

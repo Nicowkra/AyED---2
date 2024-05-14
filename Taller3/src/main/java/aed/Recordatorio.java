@@ -33,7 +33,7 @@ public class Recordatorio {
         boolean esOtro = otro.getClass() != this.getClass();
         if (esNull || esOtro){return false;}
         Recordatorio otroRecordatorio = (Recordatorio) otro;
-        return _mensaje == otroRecordatorio._mensaje && _fecha == otroRecordatorio._fecha && _horario == otroRecordatorio._horario;
+        return _mensaje.equals(otroRecordatorio.mensaje()) && _fecha.equals(otroRecordatorio._fecha) && _horario.equals(otroRecordatorio._horario);
     }
 }
 
