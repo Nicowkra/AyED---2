@@ -5,78 +5,115 @@ import java.util.*;
 public class ListaEnlazada<T> implements Secuencia<T> {
     private Nodo primero;
     private Nodo ultimo;
+    private int longitud;
 
     private class Nodo {
         T valor;
         Nodo siguiente;
         Nodo anterior;
-        Nodo(T v) {this.valor = v;}
+        Nodo(T v) {this.valor = v;
+                    this.siguiente = null;
+                    this.anterior = null;
+                }
+
+
         }
     public ListaEnlazada() {
-    this.primero = new Nodo(null);
-    this.ultimo = new Nodo(null);
+    this.primero = null;
+    this.ultimo = null;
+    this.longitud = 0;
     }
 
     public int longitud() {
-        int res = 0;
-        if (primero != null){
-            Nodo actual = primero;
-            while (actual.siguiente != null){
-                actual = actual.siguiente;
-                res ++;
-            } 
-        }
-        return res;
+        return this.longitud;
     }
 
     public void agregarAdelante(T elem) {
         Nodo nuevo = new Nodo(elem);
+       if (primero == null){
+        primero = nuevo;
+        ultimo = nuevo;
+       }
+       else{
+        this.primero.anterior = nuevo;
         nuevo.siguiente = primero;
         primero = nuevo;
+        
+    }
+    this.longitud ++;
     }
 
     public void agregarAtras(T elem) {
         Nodo nuevo = new Nodo(elem);
-        if (primero == null){
+        if (ultimo == null){
             primero = nuevo;
+            ultimo = nuevo;
         }
         else{
-            Nodo actual = primero;
-            while (actual.siguiente != null){
-                actual = actual.siguiente;
-            }
-            actual = nuevo;
+            this.ultimo.siguiente = nuevo;
+            nuevo.anterior = ultimo;
+            ultimo = nuevo;
+
         }
+    this.longitud ++;
     }
 
     public T obtener(int i) {
-        T res = null;
-        int j = 0;
-        if (primero != null){
-            Nodo actual = primero;
-            while (j != i){
+
+        int cont = 0;
+        Nodo actual = this.primero;
+            while (cont < i){
                 actual = actual.siguiente;
-                j ++;
+                cont ++;
             } 
-            res = actual.valor;
-        }
-        return res;
+        return actual.valor;
     }
 
     public void eliminar(int i) {
-        throw new UnsupportedOperationException("No implementada aun");
+        int cont = 0;
+        Nodo aux = this.primero;
+        while (cont < i) {
+            aux = aux.siguiente;
+            cont ++;
+        }
+        if (aux == primero){
+            primero = aux.siguiente;
+        }else{
+            if (aux == ultimo){
+            ultimo = aux.anterior;
+            }
+            else{
+            aux.anterior.siguiente = aux.siguiente;
+            aux.siguiente.anterior = aux.anterior;
+            }
+        }
+        this.longitud --;
     }
 
     public void modificarPosicion(int indice, T elem) {
-        throw new UnsupportedOperationException("No implementada aun");
+        int cont = 0;
+        Nodo actual = this.primero;
+            while (cont < indice){
+                actual = actual.siguiente;
+                cont ++;
+            } 
+        actual.valor = elem;
     }
 
     public ListaEnlazada<T> copiar() {
-        throw new UnsupportedOperationException("No implementada aun");
+        ListaEnlazada nueva = new ListaEnlazada<T>();
+        Nodo aux = this.primero;
+        while (aux!=null){
+            nueva.agregarAtras(aux.valor);
+            aux = aux.siguiente;
+        }
+        return nueva;
     }
-
     public ListaEnlazada(ListaEnlazada<T> lista) {
-        throw new UnsupportedOperationException("No implementada aun");
+        ListaEnlazada<T> copia = lista.copiar();
+        this.longitud = copia.longitud;
+        this.primero = copia.primero;
+        this.ultimo = copia.ultimo;
     }
     
     @Override
