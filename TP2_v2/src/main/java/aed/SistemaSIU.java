@@ -28,7 +28,7 @@ public class SistemaSIU {
                 if (actual == null){
                     Carrera nuevaCarrera = new Carrera();
                     Materia nuevaMateria = new Materia();
-                    this._carreras.agregar(nombreMateria,nuevaCarrera);
+                    this._carreras.agregar(nombreCarrera,nuevaCarrera);
                     nuevaCarrera.crearMateria(nombreMateria,nuevaMateria);
                 }else{
                     Materia NuevaMateria = new Materia();
@@ -36,11 +36,21 @@ public class SistemaSIU {
                     this._carreras.agregar(nombreMateria, actual);
                 }
             }
+       }
+       for(int i = 0; i < libretasUniversitarias.length; i += 1){
+        Alumno alumnoNuevo = new Alumno();
+        String libreta = libretasUniversitarias[i];
+        this._alumnos.agregar(libreta, alumnoNuevo);
        }	    
     }
 
     public void inscribir(String estudiante, String carrera, String materia){
-       Materia actual = 
+       Carrera carreraActual = this._carreras.obtener(carrera);
+       Materia materiaActual = carreraActual.obtenerMateria(materia);
+       Alumno alumnoActual = this._alumnos.obtener(estudiante);
+       alumnoActual.agregarMateria();
+       materiaActual.inscribir(estudiante);
+
     }
 
     public void agregarDocente(CargoDocente cargo, String carrera, String materia){
